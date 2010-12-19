@@ -1,5 +1,5 @@
 $ ->
   GMapEdit.mapInit()
   map = GMapEdit.getMap()
-  poly = new GMapEdit.Polyline(map)
+  poly = new GMapEdit.Polygon map
   poly.draw()

@@ -4,7 +4,7 @@
     map: {
       zoom: 6,
       center: new google.maps.LatLng(52, 19),
-      mapTypeId: google.maps.MapTypeId.TERRAIN,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       navigationControl: true,
       navigationControlOptions: {

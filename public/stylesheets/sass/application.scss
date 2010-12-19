@@ -22,11 +22,42 @@ body{
       z-index: 20;
       position: absolute;
       width: 100%;
+
+      .container{
+        width: 960px;
+        margin: 0 auto;
+
+        .flash{
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          margin-top: 5px;
+          margin-left: -10px;
+          width: 100%;
+          border: 2px solid black;
+          padding: 7px;
+          -moz-border-radius: 5px 5px 5px 5px;
+          -webkit-border-radius: 10px 10px 10px 10px;
+
+          &.alert{
+            color: #660000;
+            background-color: #ff9999;
+            border: 2px solid #ff6666;
+            opacity:0.8;
+          }
+          &.notice{
+            color: #006600;
+            background-color: #99ff99;
+            border: 2px solid #33aa33;
+            opacity:0.8;
+          }
+
+        }
+      }
+
       #top {
         h1#title{
           width:940px;
           margin:0 auto;
-          
         }
         
         @include menu();

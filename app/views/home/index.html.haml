@@ -1,20 +1,5 @@
-#container
-  .overmap
-    #box
-    #top
-      %h1#title
-        / GMapEdit
-      %ul#menu
-        %li 
-          %a{:href => '#'}
-            Home
-          / Submenu
-          / end Submenu  
-        %li 
-          %a{:href => '#'}
-            About
-        %li 
-          %a{:href => '#'}
-            Services
-
-  #map
+%ul
+  %li
+    = link_to "Zaloguj się", new_user_session_path
+  %li
+    = link_to "Zarejestruj się", new_user_registration_path
