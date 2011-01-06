@@ -36,7 +36,7 @@
     </requirement>
     <requirement>
       <requirement>
-        <dependency name="rails" version="3.0.1" bound="EQUAL" git="false" path="false" doRequire="true" />
+        <dependency name="rails" version="3.0.3" bound="EQUAL" git="false" path="false" doRequire="true" />
       </requirement>
       <source from="Gemfile" />
     </requirement>
@@ -97,6 +97,10 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] orm_adapter (v0.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/orm_adapter-0.0.3)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] warden (v1.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/warden-1.0.3)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] bcrypt-ruby (v2.1.2, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/bcrypt-ruby-2.1.2)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] barista (v1.0.0, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/barista-1.0.0)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] haml (v3.0.25, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] coffee-script (v2.1.1, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/coffee-script-2.1.1)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] coffee-script-source (v1.0.0, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/coffee-script-source-1.0.0)" level="application" />
   </component>
 </module>
 

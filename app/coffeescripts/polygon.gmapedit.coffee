@@ -14,6 +14,7 @@ class Polygon
     @name = 'unknown' unless @name
     @map = map
     this.createPolygon(@map)
+    @pointEventCallback = ->
     
   createPolygon: (map) ->
     @line = new google.maps.Polygon conf.line
@@ -34,14 +35,21 @@ class Polygon
       position: latLng,
       map: @map
     })
-    
+
     google.maps.event.addListener(marker, "drag", =>
       for m in @markers
         if m == marker
           @line.getPath().setAt(@markers.indexOf(m), marker.getPosition())
           break
     )
-    
+
+    google.maps.event.addListener(marker, "dragend", =>
+      for m in @markers
+        if m == marker
+          @pointEventCallback(@)
+          break
+    )
+
     google.maps.event.addListener(marker, "dblclick", =>
       for m in @markers
         if m == marker and @markers.length != 1
@@ -49,12 +57,26 @@ class Polygon
           @line.getPath().removeAt(i)
           @markers.splice(i, 1)
           marker.setMap(null)
+          @pointEventCallback(@)
           break
     )
+
+    @pointEventCallback(@)
+
     
     @markers.push marker
     
   getMap: -> @line.getMap()
+
+  serialize: ->
+    str = ''
+    if @markers.length > 0
+      for m in @markers
+        str += @markers[0].getPosition().toString()
+    else
+      return null
+
+  setPointEventCallback: (@pointEventCallback)->
 
   setName: (name) -> @name = name
   getName: -> @name

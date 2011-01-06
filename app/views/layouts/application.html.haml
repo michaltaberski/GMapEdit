@@ -9,5 +9,7 @@
     = javascript_include_tag "cs/underscore", "cs/gmapedit", "cs/polyline.gmapedit", "cs/polygon.gmapedit", "cs/application"
     = csrf_meta_tag
     %body
+      %h2= alert if alert
+      %h2= notice if notice
       = yield
       

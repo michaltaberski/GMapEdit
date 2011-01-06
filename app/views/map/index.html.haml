@@ -2,22 +2,26 @@
   .overmap
     #box
     #top
-      %h1#title
-        / GMapEdit
       %ul#menu
         %li
-          %a{:href => '#'}
-            Home
-          / Submenu
-          / end Submenu
-        %li
-          %a{:href => '#'}
-            About
-        %li
-          %a{:href => '#'}
-            Services
-        %li
-          = link_to "Wyloguj (#{current_user})", destroy_user_session_path
+          %a.drop{:href => '#'}
+            O aplikacji
+          .dropdown_5columns
+            .col_5
+              To jest aplikacja pracy inżynierskiej
+        %li.menu_left
+          %a.drop{:href => '#'} Użytkownik
+          .dropdown_1column
+            .col_1
+              %ul.simple
+                %li
+                  = link_to "Wyloguj (#{current_user})", destroy_user_session_path
+        %li.menu_right
+          %a.drop{:href => '#'} Nowy obiekt
+          .dropdown_3columns.align_right
+            .col_3
+              = render "form"
+
     .container
       - if alert
         .flash.alert= alert

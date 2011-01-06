@@ -10,7 +10,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101219174550) do
+ActiveRecord::Schema.define(:version => 20110106115110) do
+
+  create_table "points", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "color"
+    t.integer  "user_id"
+    t.string   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "polygons", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "color"
+    t.integer  "user_id"
+    t.string   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "polylines", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "color"
+    t.integer  "user_id"
+    t.string   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
