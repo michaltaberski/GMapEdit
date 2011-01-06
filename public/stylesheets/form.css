@@ -1,0 +1,22 @@
+form.inline_form {
+  overflow: hidden; }
+  form.inline_form .field_with_errors {
+    display: inline; }
+  form.inline_form ul {
+    list-style: none; }
+  form.inline_form li {
+    margin-right: 20px;
+    float: left;
+    overflow: hidden; }
+  form.inline_form li.string input {
+    border: 1px solid #b1b1b1;
+    font-size: 13px; }
+  form.inline_form label {
+    float: left;
+    margin-right: 7px;
+    font-weight: bold;
+    font-size: 14px; }
+    form.inline_form label abbr {
+      padding-left: 5px; }
+  form.inline_form input {
+    float: left; }

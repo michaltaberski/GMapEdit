@@ -1,0 +1,2 @@
+class PolylinesController < ApplicationController
+end

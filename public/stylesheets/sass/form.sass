@@ -1,0 +1,126 @@
+@import formtastic_base.sass
+
+form.formtastic
+//  margin: 5px 10px
+  +stack-form
+  legend
+    span
+      :font-size 16px
+      :font-weight bold
+      :display block
+      :padding-bottom 5px
+  fieldset
+    border: none
+    &.buttons
+      margin-bottom: 10px
+
+  li
+    margin: 5px 0
+    .label
+      margin-bottom: 4px
+      font-weight: bold
+      font-size: 14px
+
+  li.string input, li.password input
+    width: 350px
+
+  li.text textarea
+    width: 350px
+    height: 200px
+    border: 1px solid #b1b1b1
+    font-size: 14px
+    padding: 2px
+
+  li.string, li.select, li.text, li.password, li.file, li.numeric
+    margin-bottom: 15px
+    label
+      margin-bottom: 4px
+      font-weight: bold
+      font-size: 14px
+      abbr
+        padding-left: 5px
+
+  li.string, li.text, li.password
+    input
+      border: 1px solid #b1b1b1
+      font-size: 14px
+      padding: 2px
+
+  li.radio
+    .label
+      margin-bottom: 4px
+      font-weight: bold
+      font-size: 16px
+    ol
+      margin-left: 10px
+      overflow: hidden
+      li
+        margin: 0
+        float: left
+
+      label
+        margin-right: 15px
+
+  li.boolean input
+    margin-right: 7px
+
+  p.inline-hints
+    color: #6f6f6f
+    padding: 3px 0
+
+  form p, .errors
+    padding: 3px 0px
+  li.error
+    label
+      color: #f00
+    input,textarea,select
+      background-color: #ffe2e2
+      border: 1px solid #f66
+  .errors
+    color: #a00
+    li
+      margin-left: 1.2em
+  p.inline-errors
+    color: #f00
+    padding: 3px 0
+    font-weight: normal
+    font-size: 14px
+
+  &.searchlogic
+    margin: 0 5px
+    li.string, li.select, li.text, li.password, li.file, li.numeric
+      margin: 8px 0 8px 0
+      label
+        font-size: 14px
+        margin-bottom: 0
+    li.string input, li.password input
+      width: 200px
+      font-size: 13px
+    li.text textarea
+      width: 200px
+      height: 70px
+      font-size: 13px
+
+form.inline_form
+  overflow: hidden
+  .field_with_errors
+    display: inline
+  ul
+    list-style: none
+  li
+    margin-right: 20px
+    float: left
+    overflow: hidden
+  li.string
+    input
+      border: 1px solid #b1b1b1
+      font-size: 13px
+  label
+    float: left
+    margin-right: 7px
+    font-weight: bold
+    font-size: 14px
+    abbr
+      padding-left: 5px
+  input
+    float: left
