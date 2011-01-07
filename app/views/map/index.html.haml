@@ -1,3 +1,5 @@
+:coffee
+  
 #container
   .overmap
     #box
@@ -16,11 +18,8 @@
               %ul.simple
                 %li
                   = link_to "Wyloguj (#{current_user})", destroy_user_session_path
-        %li.menu_right
-          %a.drop{:href => '#'} Nowy obiekt
-          .dropdown_3columns.align_right
-            .col_3
-              = render "form"
+        %li.menu_right#form_menu
+          = render "new_object_list"
 
     .container
       - if alert

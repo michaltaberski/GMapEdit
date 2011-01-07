@@ -1,0 +1,7 @@
+%a.drop{:href => '#'} Nowy obiekt
+.dropdown_1column.align_right
+  .col_1
+    %ul.simple
+      %li= link_to 'Nowa powierzchnia', new_polygon_path, :id => 'new_polygon_link'
+      %li= link_to 'Nowa trasa', new_polyline_path, :id => 'new_polyline_link'
+      %li= link_to 'Nowy punkt', new_point_path, :id => 'new_point_link'

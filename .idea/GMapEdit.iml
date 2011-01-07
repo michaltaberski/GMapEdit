@@ -18,6 +18,12 @@
     </requirement>
     <requirement>
       <requirement>
+        <dependency name="coffee-haml-filter" version="0" bound="GREATER_OR_EQUAL" git="false" path="false" doRequire="true" />
+      </requirement>
+      <source from="Gemfile" />
+    </requirement>
+    <requirement>
+      <requirement>
         <dependency name="devise" version="0" bound="GREATER_OR_EQUAL" git="false" path="false" doRequire="true" />
       </requirement>
       <source from="Gemfile" />
@@ -101,6 +107,15 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] haml (v3.0.25, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/haml-3.0.25)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] coffee-script (v2.1.1, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/coffee-script-2.1.1)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] coffee-script-source (v1.0.0, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/coffee-script-source-1.0.0)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] railties (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/railties-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] actionpack (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/actionpack-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] arel (v2.0.5.20101130111154, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/arel-2.0.6)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] rails (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/rails-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] activerecord (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activerecord-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] activesupport (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activesupport-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] activeresource (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activeresource-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] actionmailer (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/actionmailer-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] activemodel (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activemodel-3.0.3)" level="application" />
   </component>
 </module>
 

@@ -4,7 +4,10 @@ class MapController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    # flash[:notice] = 'Przezroczystość CSS3'
+  end
+
+  def menu
+    
   end
 
 end

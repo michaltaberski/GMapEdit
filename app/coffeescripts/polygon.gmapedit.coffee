@@ -11,24 +11,48 @@ conf =
 class Polygon
   constructor: (map, @color, @name) ->
     @color = conf.color unless @color
-    @name = 'unknown' unless @name
+    @name = 'no name' unless @name
     @map = map
     this.createPolygon(@map)
+    @id = 'new'
+    @objClickCallback = -> 
     @pointEventCallback = ->
     
   createPolygon: (map) ->
     @line = new google.maps.Polygon conf.line
+    google.maps.event.addListener(@line, 'click', => @objClickCallback())
+    
     @line.setMap(map)
     @markers = []
     
   draw: ->
     google.maps.event.removeListener(@currentListener) if @currentListener
-    @currentListener = google.maps.event.addListener(this.getMap(), 'click', (e) => 
-      path = @line.getPath()
-      path.push(e.latLng)
-      this.createMarker(e.latLng)
-    )
     
+    for m in @markers
+      m.setMap @getMap()
+
+    @currentListener = google.maps.event.addListener(this.getMap(), 'click', (e) => 
+      @addNewPoint(e.latLng)
+    )
+
+  addNewPoint: (latLng) ->
+    path = @line.getPath()
+    path.push(latLng)
+    @createMarker(latLng)
+    
+
+  setId: (@id) ->
+  getId: -> @id
+  
+  setDescription: (@description) ->
+  getDescription: -> @description
+
+  unselect: ->
+    google.maps.event.clearInstanceListeners(@getMap(), 'click')
+    # google.maps.event.removeListener(@currentListener) if @currentListener
+    for m in @markers
+      m.setMap(null)
+
   createMarker: (latLng) ->
     marker =  new google.maps.Marker({
       draggable: true,
@@ -60,23 +84,41 @@ class Polygon
           @pointEventCallback(@)
           break
     )
-
-    @pointEventCallback(@)
-
-    
     @markers.push marker
+    @pointEventCallback(@)
     
   getMap: -> @line.getMap()
 
+  deserialize: (obj) ->
+    obj = obj.polygon
+    @deserialize_data(obj.data)
+    @setId(obj.id)
+    @setColor(obj.color)
+    @setName(obj.name)
+    @setDescription(obj.description)
+    @unselect()
+
+  deserialize_data: (input) ->
+    elements = input.split('|')
+    for e in elements
+      sube = e.split(',')
+      latlng = new google.maps.LatLng(sube[0], sube[1])
+      @addNewPoint(latlng)
+
   serialize: ->
-    str = ''
+    result = []
     if @markers.length > 0
       for m in @markers
-        str += @markers[0].getPosition().toString()
+        lat = m.getPosition().lat()
+        lng = m.getPosition().lng()
+        result.push([lat, lng])
+      return result.join('|')
     else
       return null
 
-  setPointEventCallback: (@pointEventCallback)->
+
+  setObjClickCallback: (@objClickCallback) ->
+  setPointEventCallback: (@pointEventCallback) ->
 
   setName: (name) -> @name = name
   getName: -> @name
@@ -87,6 +129,11 @@ class Polygon
   getColor: -> @color
 
   toString: -> @name
+  
+  destroy: ->
+    @unselect()
+    @line.setMap(null)
+  
 # end Polyline class
   
 @['GMapEdit']['Polygon'] = (color) -> new Polygon(color)
