@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 19:02:23 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 21:55:35 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/polygon.gmapedit.coffee
  */
 
@@ -26,14 +26,15 @@
         this.name = 'no name';
       }
       this.map = map;
-      this.createPolygon(this.map);
+      this.createObject(this.map);
       this.id = 'new';
       this.objClickCallback = function() {};
       this.pointEventCallback = function() {};
     }
-    Polygon.prototype.createPolygon = function(map) {
-      this.line = new google.maps.Polygon(conf.line);
-      this.line.setMap(map);
+    Polygon.prototype.createObject = function(map) {
+      this.type = 'polygon';
+      this.object = new google.maps.Polygon(conf.line);
+      this.object.setMap(map);
       this.setObjClickCallback(this.objClickCallback);
       return this.markers = [];
     };
@@ -53,7 +54,7 @@
     };
     Polygon.prototype.addNewPoint = function(latLng) {
       var path;
-      path = this.line.getPath();
+      path = this.object.getPath();
       path.push(latLng);
       return this.createMarker(latLng);
     };
@@ -83,7 +84,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           m = _ref[_i];
           if (m === marker) {
-            this.line.getPath().setAt(this.markers.indexOf(m), marker.getPosition());
+            this.object.getPath().setAt(this.markers.indexOf(m), marker.getPosition());
             break;
           }
         }
@@ -110,7 +111,7 @@
           m = _ref[_i];
           if (m === marker && this.markers.length !== 1) {
             i = this.markers.indexOf(m);
-            this.line.getPath().removeAt(i);
+            this.object.getPath().removeAt(i);
             this.markers.splice(i, 1);
             marker.setMap(null);
             this.pointEventCallback(this);
@@ -123,13 +124,13 @@
       return this.pointEventCallback(this);
     };
     Polygon.prototype.getMap = function() {
-      return this.line.getMap();
+      return this.object.getMap();
     };
     Polygon.prototype.setMap = function(map) {
-      return this.line.setMap(map);
+      return this.object.setMap(map);
     };
     Polygon.prototype.deserialize = function(obj) {
-      obj = obj.polygon;
+      obj = obj[this.type];
       this.deserialize_data(obj.data);
       this.setId(obj.id);
       this.setColor(obj.color);
@@ -139,7 +140,7 @@
     };
     Polygon.prototype.clear = function() {
       var m, path, _i, _len, _ref;
-      path = this.line.getPath();
+      path = this.object.getPath();
       path.clear();
       _ref = this.markers;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -182,7 +183,7 @@
         google.maps.event.removeListener(this.objClickListner);
       }
       this.objClickCallback = objClickCallback;
-      return this.objClickListner = google.maps.event.addListener(this.line, 'click', __bind(function() {
+      return this.objClickListner = google.maps.event.addListener(this.object, 'click', __bind(function() {
         return this.objClickCallback(this.id);
       }, this));
     };
@@ -201,7 +202,7 @@
     };
     Polygon.prototype.setColor = function(color) {
       this.color = color;
-      return this.line.setOptions({
+      return this.object.setOptions({
         'color': color
       });
     };
@@ -226,9 +227,11 @@
     };
     Polygon.prototype.destroy = function() {
       this.unselect();
-      this.line.setMap(null);
+      if (this.object) {
+        this.object.setMap(null);
+      }
       this.map = null;
-      return this.line = null;
+      return this.object = null;
     };
     return Polygon;
   })();

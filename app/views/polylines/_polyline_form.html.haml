@@ -1,11 +1,11 @@
 %a.drop{:href => '#'}
-  - if @polygon.name.blank?
+  - if @polyline.name.blank?
     Nowa powierzchnia
   - else
-    = "#{@polygon.name} (powierzchnia)"
+    = "#{@polyline.name} (trasa)"
 .dropdown_3columns.align_right
   .col_3
-    = semantic_form_for  @polygon do |f|
+    = semantic_form_for  @polyline do |f|
       = f.inputs do
         = f.input :name
         = f.input :description
@@ -15,4 +15,4 @@
         %li.align_right
           = link_to 'Anuluj', nil, :id => 'cancel'
         %li.align_right
-          = link_to 'Usuń', @polygon, { :id => 'delete'} if @polygon.id
+          = link_to 'Usuń', @polyline, { :id => 'delete'} if @polyline.id

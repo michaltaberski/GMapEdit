@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 17:47:17 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 20:34:59 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/gmapedit.coffee
  */
 
@@ -27,7 +27,9 @@
       if (latLng) {
         this.map.setCenter(latLng);
       }
-      return this.polygons = {};
+      this.polygons = {};
+      this.polylines = {};
+      return this.points = {};
     },
     getMap: function() {
       return this.map;

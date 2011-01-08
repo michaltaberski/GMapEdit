@@ -21,6 +21,8 @@ conf =
     @map.setCenter(latLng) if latLng
     
     @polygons = {}
+    @polylines = {}
+    @points = {}
     
     
   getMap: -> @map
