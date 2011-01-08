@@ -8,30 +8,29 @@ conf =
     fillColor: this.color
     fillOpacity: 0.35
 
-class Polygon
+@Polygon = class Polygon
   constructor: (map, @color, @name) ->
     @color = conf.color unless @color
     @name = 'no name' unless @name
     @map = map
-    this.createPolygon(@map)
+    @createPolygon(@map)
     @id = 'new'
     @objClickCallback = -> 
     @pointEventCallback = ->
     
   createPolygon: (map) ->
     @line = new google.maps.Polygon conf.line
-    google.maps.event.addListener(@line, 'click', => @objClickCallback())
-    
     @line.setMap(map)
+    @setObjClickCallback(@objClickCallback)
     @markers = []
     
   draw: ->
-    google.maps.event.removeListener(@currentListener) if @currentListener
+    google.maps.event.removeListener(@mapClickListener) if @mapClickListener
     
     for m in @markers
       m.setMap @getMap()
 
-    @currentListener = google.maps.event.addListener(this.getMap(), 'click', (e) => 
+    @mapClickListener = google.maps.event.addListener(this.getMap(), 'click', (e) => 
       @addNewPoint(e.latLng)
     )
 
@@ -46,12 +45,6 @@ class Polygon
   
   setDescription: (@description) ->
   getDescription: -> @description
-
-  unselect: ->
-    google.maps.event.clearInstanceListeners(@getMap(), 'click')
-    # google.maps.event.removeListener(@currentListener) if @currentListener
-    for m in @markers
-      m.setMap(null)
 
   createMarker: (latLng) ->
     marker =  new google.maps.Marker({
@@ -88,6 +81,7 @@ class Polygon
     @pointEventCallback(@)
     
   getMap: -> @line.getMap()
+  setMap: (map)-> @line.setMap(map)
 
   deserialize: (obj) ->
     obj = obj.polygon
@@ -98,7 +92,15 @@ class Polygon
     @setDescription(obj.description)
     @unselect()
 
+  clear: ->
+    path = @line.getPath()
+    path.clear()
+    for m in @markers
+      m.setMap(null)
+    @markers.length = 0
+
   deserialize_data: (input) ->
+    @clear()
     elements = input.split('|')
     for e in elements
       sube = e.split(',')
@@ -117,8 +119,18 @@ class Polygon
       return null
 
 
-  setObjClickCallback: (@objClickCallback) ->
+  setObjClickCallback: (objClickCallback) ->
+    google.maps.event.removeListener(@objClickListner) if @objClickListner
+    @objClickCallback = objClickCallback
+    @objClickListner = google.maps.event.addListener(@line, 'click', => @objClickCallback(@id))
+    # @objClickListner = google.maps.event.addListener(@line, 'click', => @id)
+    
+    
   setPointEventCallback: (@pointEventCallback) ->
+  nullCallbacks: ->
+    @setPointEventCallback( -> )
+    @setObjClickCallback( -> ) 
+
 
   setName: (name) -> @name = name
   getName: -> @name
@@ -130,11 +142,20 @@ class Polygon
 
   toString: -> @name
   
+  unselect: ->
+    # google.maps.event.clearInstanceListeners(@getMap(), 'click')
+    # google.maps.event.removeListener(@objClickListner)
+    google.maps.event.removeListener(@mapClickListener) if @mapClickListener
+    
+    for m in @markers
+      m.setMap(null)
+  
   destroy: ->
     @unselect()
     @line.setMap(null)
+    @map = null
+    @line = null
   
 # end Polyline class
-  
-@['GMapEdit']['Polygon'] = (color) -> new Polygon(color)
-  
+    
+c = (x) -> console.log x

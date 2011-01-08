@@ -1,3 +1,7 @@
+/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 17:47:17 GMT from
+ * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/gmapedit.coffee
+ */
+
 (function() {
   var conf;
   conf = {
@@ -21,8 +25,9 @@
     mapInit: function(latLng) {
       this.map = new google.maps.Map($('#map').get(0), conf.map);
       if (latLng) {
-        return this.map.setCenter(latLng);
+        this.map.setCenter(latLng);
       }
+      return this.polygons = {};
     },
     getMap: function() {
       return this.map;

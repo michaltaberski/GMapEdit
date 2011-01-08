@@ -12,13 +12,7 @@
   <component name="GemRequirementsHolder" version="3">
     <requirement>
       <requirement>
-        <dependency name="barista" version="0.5.0" bound="GREATER_OR_EQUAL" git="false" path="false" doRequire="true" />
-      </requirement>
-      <source from="Gemfile" />
-    </requirement>
-    <requirement>
-      <requirement>
-        <dependency name="coffee-haml-filter" version="0" bound="GREATER_OR_EQUAL" git="false" path="false" doRequire="true" />
+        <dependency name="barista" version="1.0.0" bound="GREATER_OR_EQUAL" git="false" path="false" doRequire="true" />
       </requirement>
       <source from="Gemfile" />
     </requirement>
@@ -116,6 +110,7 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] activeresource (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activeresource-3.0.3)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] actionmailer (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/actionmailer-3.0.3)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] activemodel (v3.0.3, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/activemodel-3.0.3)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] coffee-haml-filter (v0.4.0, /Users/tesla/.rvm/gems/ruby-1.9.2-p0/gems/coffee-haml-filter-0.4.0)" level="application" />
   </component>
 </module>
 

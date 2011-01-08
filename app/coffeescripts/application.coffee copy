@@ -1,0 +1,149 @@
+polylines = new Array()
+polygons = {}
+points = new Array()
+current_obj = null
+
+
+$ ->
+  GMapEdit.mapInit()
+  @map = GMapEdit.getMap()
+  $('.flash').fadeOut(2000, -> $(@).remove())
+  load_data()
+  load_links()
+
+
+load_data = ->
+    
+  $.get("/polygons", (data) ->
+    for p in data
+      if polygons[p.polygon.id]
+        polygons[p.polygon.id].destroy()
+      
+      polygons[p.polygon.id] = new GMapEdit.Polygon(GMapEdit.getMap())
+      polygons[p.polygon.id].deserialize(p)
+      polygons[p.polygon.id].setObjClickCallback (id)->
+        load_polygon_form(id)
+  , "json")
+
+
+load_links = ->
+  $.getScript '/map/menu', -> 
+    $('#new_polygon_link').click (e) ->
+      e.preventDefault()
+      load_new_polygon_form()
+
+    $('#new_polyline_link').live 'click', (e) ->
+      e.preventDefault()
+      alert 'e'
+
+    $('#new_point_link').live 'click', (e) ->
+      e.preventDefault()
+      alert 'f'
+
+load_polygon_form = (id) ->
+  cancel_obj(current_obj)
+  current_obj = polygons[id]
+  $.getScript("/polygons/#{current_obj.getId()}/edit", ->
+    current_obj.setPointEventCallback ->
+      $('#polygon_data').val(current_obj.serialize())
+
+    current_obj.draw()
+
+    $('#polygon_submit').click (e) ->
+      e.preventDefault()
+      update_polygon(current_obj)
+    
+    $('#cancel').click (e) ->
+      e.preventDefault()
+      cancel_obj(current_obj)
+      
+  )
+
+load_new_polygon_form = ->
+  cancel_obj(current_obj)
+
+  $.getScript($('#new_polygon_link').attr('href'), ->
+
+    poly = new GMapEdit.Polygon GMapEdit.getMap()
+    poly.draw()
+    poly.setPointEventCallback ->
+      $('#polygon_data').val(poly.serialize())
+
+    $('#polygon_submit').click (e) ->
+      e.preventDefault()
+      create_polygon(poly)
+      
+    $('#cancel').click (e) ->
+      e.preventDefault()
+      cancel_new(poly)
+  )
+
+flash_alert = (msg) ->
+  $('.container').append("<div class = 'flash alert'>#{msg}</div>")
+  setTimeout( (msg) ->
+    $('.flash').fadeOut(2000, -> $(@).remove() )
+  , 3000) 
+
+
+flash_notice = (msg) ->
+  $('.container').append("<div class = 'flash notice'>#{msg}</div>")
+  setTimeout( (msg) ->
+    $('.flash').fadeOut(2000, -> $(@).remove() )
+  , 3000) 
+
+
+cancel_obj = (obj)->
+  if obj
+    if obj.id == 'new'
+      cancel_new(obj)
+    else
+      cancel_edit(obj)
+
+cancel_new = (obj)->
+  load_links()
+  # obj.setPointEventCallback( -> )
+  obj.destroy()
+  
+cancel_edit = (obj)->
+  # obj.setPointEventCallback( -> )
+  obj.unselect()
+  # load_data()
+  redraw_polygon(obj.getId())
+  load_links()
+  
+update_polygon = (poly)->
+  form = $('form.formtastic.polygon')
+  action = form.attr('action')
+  $.post action, form.serialize(), (data) ->
+    if data.status == 'success'
+      poly.unselect()
+      load_links()
+      # load_data()
+      flash_notice "Powierzchnia zapisana poprawnie"
+    else
+      flash_alert "Błąd"
+  , 'json'
+  
+redraw_polygon = (id) ->
+  console.log id
+  $.get "/polygons/#{id}", (data) ->
+    polygons[id].deserialize(data)
+  , 'json'
+  
+create_polygon = (poly)->
+  form = $('#new_polygon')
+  action = form.attr('action')
+
+  if !$('#polygon_data').val()
+    flash_alert('Narysuj powierzchnię przed wysłaniem')
+  else
+    $.post action, form.serialize(), (data) ->
+      if data.status == 'success'
+        poly.unselect()
+        poly.setId(data.id)
+        polygons.push(poly)
+        load_links()
+        load_data()
+        flash_notice "Powierzchnia zapisana poprawnie"
+    , 'json'
+

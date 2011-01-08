@@ -1,9 +1,9 @@
-/* DO NOT MODIFY. This file was compiled Fri, 07 Jan 2011 21:36:00 GMT from
+/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 19:02:23 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/polygon.gmapedit.coffee
  */
 
 (function() {
-  var Polygon, conf;
+  var Polygon, c, conf;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   conf = {
     color: '#10bf4d',
@@ -15,7 +15,7 @@
       fillOpacity: 0.35
     }
   };
-  Polygon = (function() {
+  this.Polygon = Polygon = (function() {
     function Polygon(map, color, name) {
       this.color = color;
       this.name = name;
@@ -33,23 +33,21 @@
     }
     Polygon.prototype.createPolygon = function(map) {
       this.line = new google.maps.Polygon(conf.line);
-      google.maps.event.addListener(this.line, 'click', __bind(function() {
-        return this.objClickCallback();
-      }, this));
       this.line.setMap(map);
+      this.setObjClickCallback(this.objClickCallback);
       return this.markers = [];
     };
     Polygon.prototype.draw = function() {
       var m, _i, _len, _ref;
-      if (this.currentListener) {
-        google.maps.event.removeListener(this.currentListener);
+      if (this.mapClickListener) {
+        google.maps.event.removeListener(this.mapClickListener);
       }
       _ref = this.markers;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         m = _ref[_i];
         m.setMap(this.getMap());
       }
-      return this.currentListener = google.maps.event.addListener(this.getMap(), 'click', __bind(function(e) {
+      return this.mapClickListener = google.maps.event.addListener(this.getMap(), 'click', __bind(function(e) {
         return this.addNewPoint(e.latLng);
       }, this));
     };
@@ -70,17 +68,6 @@
     };
     Polygon.prototype.getDescription = function() {
       return this.description;
-    };
-    Polygon.prototype.unselect = function() {
-      var m, _i, _len, _ref, _results;
-      google.maps.event.clearInstanceListeners(this.getMap(), 'click');
-      _ref = this.markers;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        m = _ref[_i];
-        _results.push(m.setMap(null));
-      }
-      return _results;
     };
     Polygon.prototype.createMarker = function(latLng) {
       var marker;
@@ -138,6 +125,9 @@
     Polygon.prototype.getMap = function() {
       return this.line.getMap();
     };
+    Polygon.prototype.setMap = function(map) {
+      return this.line.setMap(map);
+    };
     Polygon.prototype.deserialize = function(obj) {
       obj = obj.polygon;
       this.deserialize_data(obj.data);
@@ -147,8 +137,20 @@
       this.setDescription(obj.description);
       return this.unselect();
     };
+    Polygon.prototype.clear = function() {
+      var m, path, _i, _len, _ref;
+      path = this.line.getPath();
+      path.clear();
+      _ref = this.markers;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        m = _ref[_i];
+        m.setMap(null);
+      }
+      return this.markers.length = 0;
+    };
     Polygon.prototype.deserialize_data = function(input) {
       var e, elements, latlng, sube, _i, _len, _results;
+      this.clear();
       elements = input.split('|');
       _results = [];
       for (_i = 0, _len = elements.length; _i < _len; _i++) {
@@ -176,10 +178,20 @@
       }
     };
     Polygon.prototype.setObjClickCallback = function(objClickCallback) {
+      if (this.objClickListner) {
+        google.maps.event.removeListener(this.objClickListner);
+      }
       this.objClickCallback = objClickCallback;
+      return this.objClickListner = google.maps.event.addListener(this.line, 'click', __bind(function() {
+        return this.objClickCallback(this.id);
+      }, this));
     };
     Polygon.prototype.setPointEventCallback = function(pointEventCallback) {
       this.pointEventCallback = pointEventCallback;
+    };
+    Polygon.prototype.nullCallbacks = function() {
+      this.setPointEventCallback(function() {});
+      return this.setObjClickCallback(function() {});
     };
     Polygon.prototype.setName = function(name) {
       return this.name = name;
@@ -199,13 +211,28 @@
     Polygon.prototype.toString = function() {
       return this.name;
     };
+    Polygon.prototype.unselect = function() {
+      var m, _i, _len, _ref, _results;
+      if (this.mapClickListener) {
+        google.maps.event.removeListener(this.mapClickListener);
+      }
+      _ref = this.markers;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        m = _ref[_i];
+        _results.push(m.setMap(null));
+      }
+      return _results;
+    };
     Polygon.prototype.destroy = function() {
       this.unselect();
-      return this.line.setMap(null);
+      this.line.setMap(null);
+      this.map = null;
+      return this.line = null;
     };
     return Polygon;
   })();
-  this['GMapEdit']['Polygon'] = function(color) {
-    return new Polygon(color);
+  c = function(x) {
+    return console.log(x);
   };
 }).call(this);

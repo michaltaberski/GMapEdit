@@ -10,3 +10,5 @@
         = f.commit_button :label => 'Zapisz '
         %li.align_right
           = link_to 'Anuluj', nil, :id => 'cancel'
+        %li.align_right
+          = link_to 'Usuń', @polygon, { :id => 'delete'} if @polygon.id

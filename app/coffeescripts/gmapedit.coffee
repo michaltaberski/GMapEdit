@@ -20,4 +20,8 @@ conf =
     @map = new google.maps.Map($('#map').get(0), conf.map)
     @map.setCenter(latLng) if latLng
     
+    @polygons = {}
+    
+    
   getMap: -> @map
+  
