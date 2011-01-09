@@ -4,7 +4,7 @@ $ ->
   GMapEdit.mapInit()
   @map = GMapEdit.getMap()
   $('.flash').fadeOut(2000, -> $(@).remove())
-  
+    
   load_links()
 
   $.get("/polygons", (data) ->
@@ -21,19 +21,12 @@ $ ->
       GMapEdit.polylines[p.polyline.id].setObjClickCallback genericObjClickCallback 
   , "json")
   
-  # $.get("/points", (data) ->
-  #   for p in data
-  #     GMapEdit.points[p.point.id] = new Point(GMapEdit.getMap())
-  #     GMapEdit.points[p.point.id].deserialize(p)
-  #     GMapEdit.points[p.point.id].setObjClickCallback genericObjClickCallback 
-  # , "json")
-
-
-  
-  console.log GMapEdit.polygons 
-  console.log GMapEdit.polylines 
-  console.log GMapEdit.points 
-  
+  $.get("/points", (data) ->
+    for p in data
+      GMapEdit.points[p.point.id] = new Point(GMapEdit.getMap())
+      GMapEdit.points[p.point.id].deserialize(p)
+      GMapEdit.points[p.point.id].setObjClickCallback genericObjClickCallback 
+  , "json")
 
 
 cancel = (obj)->
@@ -56,9 +49,9 @@ load_links = ->
       e.preventDefault()
       load_new_object_form('polyline')
       
-    $('#new_point_link').live 'click', (e) ->
+    $('#new_point_link').click (e) ->
       e.preventDefault()
-      alert 'f'
+      load_new_object_form('point')
       
 # load_polygon_form = ->
 #   $.getScript "/polygons/#{current_obj.getId()}/edit", ->
@@ -117,8 +110,8 @@ load_new_object_form = (obj_type) ->
       current_obj = new Polygon GMapEdit.getMap()
     if obj_type == 'polyline'
       current_obj = new Polyline GMapEdit.getMap()
-    # if obj_name == 'point'
-    #   current_obj = new Polygon GMapEdit.getMap()
+    if obj_type == 'point'
+      current_obj = new Point GMapEdit.getMap()
 
     
     current_obj.draw()

@@ -66,6 +66,4 @@ class PolylinesController < ApplicationController
     end
   end
 
-
-
 end

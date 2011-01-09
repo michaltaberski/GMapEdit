@@ -1,11 +1,11 @@
 %a.drop{:href => '#'}
-  - if @polyline.name.blank?
-    Nowa trasa
+  - if @point.name.blank?
+    Nowy punkt
   - else
-    = "#{@polyline.name} (trasa)"
+    = "#{@point.name} (punkt)"
 .dropdown_3columns.align_right
   .col_3
-    = semantic_form_for  @polyline do |f|
+    = semantic_form_for  @point do |f|
       = f.inputs do
         = f.input :name
         = f.input :description
@@ -15,4 +15,4 @@
         %li.align_right
           = link_to 'Anuluj', nil, :id => 'cancel'
         %li.align_right
-          = link_to 'Usuń', @polyline, { :id => 'delete'} if @polyline.id
+          = link_to 'Usuń', @point, { :id => 'delete'} if @point.id

@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 21:58:47 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 09 Jan 2011 15:46:29 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/application.coffee
  */
 
@@ -34,9 +34,17 @@
       }
       return _results;
     }, "json");
-    console.log(GMapEdit.polygons);
-    console.log(GMapEdit.polylines);
-    return console.log(GMapEdit.points);
+    return $.get("/points", function(data) {
+      var p, _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = data.length; _i < _len; _i++) {
+        p = data[_i];
+        GMapEdit.points[p.point.id] = new Point(GMapEdit.getMap());
+        GMapEdit.points[p.point.id].deserialize(p);
+        _results.push(GMapEdit.points[p.point.id].setObjClickCallback(genericObjClickCallback));
+      }
+      return _results;
+    }, "json");
   });
   cancel = function(obj) {
     if (obj) {
@@ -59,9 +67,9 @@
         e.preventDefault();
         return load_new_object_form('polyline');
       });
-      return $('#new_point_link').live('click', function(e) {
+      return $('#new_point_link').click(function(e) {
         e.preventDefault();
-        return alert('f');
+        return load_new_object_form('point');
       });
     });
   };
@@ -104,6 +112,9 @@
       }
       if (obj_type === 'polyline') {
         current_obj = new Polyline(GMapEdit.getMap());
+      }
+      if (obj_type === 'point') {
+        current_obj = new Point(GMapEdit.getMap());
       }
       current_obj.draw();
       current_obj.setPointEventCallback(function() {
