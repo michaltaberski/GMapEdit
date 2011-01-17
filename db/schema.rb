@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20110106115110) do
     t.text     "description"
     t.string   "color"
     t.integer  "user_id"
-    t.string   "data"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110106115110) do
     t.text     "description"
     t.string   "color"
     t.integer  "user_id"
-    t.string   "data"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,6 +4,8 @@ GMapEdit::Application.routes.draw do
 
   get "map/index"
   get "map/menu"
+  get "map/kml", :as => "kml"
+
 
   resources :polygons
   resources :polylines

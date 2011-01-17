@@ -18,6 +18,8 @@
                   = link_to "Wyloguj (#{current_user})", destroy_user_session_path
         %li.menu_right#form_menu
           = render "new_object_list"
+        %li.menu_right
+          = link_to 'Zapisz do KML', kml_path, {:target => :blank}
 
     .container
       - if alert

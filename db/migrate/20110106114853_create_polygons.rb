@@ -5,7 +5,7 @@ class CreatePolygons < ActiveRecord::Migration
       t.text :description
       t.string :color
       t.integer :user_id
-      t.string :data
+      t.text :data
 
       t.timestamps
     end

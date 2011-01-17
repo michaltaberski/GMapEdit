@@ -2,43 +2,74 @@
 body, html {
   height: 100%; }
 
-body #container {
-  width: 100%;
-  height: 100%;
-  position: relative; }
-  body #container #map {
+body {
+  background-color: #d7f7ff; }
+  body #container {
     width: 100%;
     height: 100%;
-    background-color: #cfcfcf;
+    position: relative; }
+    body #container #map {
+      width: 100%;
+      height: 100%;
+      background-color: #cfcfcf;
+      position: absolute;
+      z-index: 10; }
+    body #container .overmap {
+      z-index: 20;
+      position: absolute;
+      width: 100%; }
+      body #container .overmap .container {
+        width: 960px;
+        margin: 0 auto; }
+        body #container .overmap .container .flash {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          margin-top: 5px;
+          margin-left: -10px;
+          width: 100%;
+          border: 2px solid black;
+          padding: 7px;
+          -moz-border-radius: 5px 5px 5px 5px;
+          -webkit-border-radius: 10px 10px 10px 10px; }
+      body #container .overmap #top h1#title {
+        width: 940px;
+        margin: 0 auto; }
+  body .flash.alert {
+    color: #660000;
+    background-color: #ff9999;
+    border: 2px solid #ff6666;
+    opacity: 0.8; }
+  body .flash.notice {
+    color: #006600;
+    background-color: #99ff99;
+    border: 2px solid #33aa33;
+    opacity: 0.8; }
+  body #login {
+    width: 300px;
+    height: 300px;
     position: absolute;
-    z-index: 10; }
-  body #container .overmap {
-    z-index: 20;
-    position: absolute;
-    width: 100%; }
-    body #container .overmap .container {
-      width: 960px;
-      margin: 0 auto; }
-      body #container .overmap .container .flash {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        margin-top: 5px;
-        margin-left: -10px;
-        width: 100%;
-        border: 2px solid black;
-        padding: 7px;
-        -moz-border-radius: 5px 5px 5px 5px;
-        -webkit-border-radius: 10px 10px 10px 10px; }
-        body #container .overmap .container .flash.alert {
-          color: #660000;
-          background-color: #ff9999;
-          border: 2px solid #ff6666;
-          opacity: 0.8; }
-        body #container .overmap .container .flash.notice {
-          color: #006600;
-          background-color: #99ff99;
-          border: 2px solid #33aa33;
-          opacity: 0.8; }
-    body #container .overmap #top h1#title {
-      width: 940px;
-      margin: 0 auto; }
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -150px;
+    text-align: center; }
+    body #login h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #000033; }
+    body #login a {
+      text-decoration: none;
+      color: #0033cc; }
+      body #login a:hover {
+        color: #6699ff; }
+    body #login h2 {
+      font-size: 25px;
+      margin-bottom: 10px; }
+    body #login .center {
+      text-align: center; }
+    body #login .links {
+      text-align: center; }
+      body #login .links li {
+        display: inline;
+        line-height: 40px;
+        font-size: 2em; }
