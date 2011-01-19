@@ -1,0 +1,78 @@
+xml.instruct!
+xml.kml("xmlns" => "http://www.opengis.net/kml/2.2"){
+  xml.Document{
+    xml.name 'Plik wynikowy'
+    xml.comment! 'Points'
+    @points.each.each{ |p|
+      xml.Placemark {
+        xml.name p.name
+        xml.description p.description
+        xml.Point{
+          xml.coordinates p(p.data)
+        }
+      }
+    }
+    xml.comment! 'end of points'
+    
+    # xml.comment! 'Polygon'
+    # @polygons.each.each{ |p|
+    #   xml.Placemark {
+    #     xml.name p.name
+    #     xml.description p.description
+    #     xml.Polygon{
+    #       xml.tessellate '1'
+    #       xml.altitudeMode 'absolute'
+    #       xml.outerBoundaryIs{
+    #         xml.LinearRing{
+    #           xml.coordinates p(p.data)
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
+    # xml.comment! 'end of polygon'
+    
+  }
+}
+
+#     <Placemark>
+#       <name>Ratusz</name>
+#       <description></description>
+#       <Polygon>
+#         <tessellate>1</tessellate>
+#         <altitudeMode>absolute</altitudeMode>
+#         <outerBoundaryIs>
+#           <LinearRing>
+#             <coordinates>
+#               16.933571189641963,52.40876228521378,0
+#               16.934075444936763,52.40870665397585,0
+#               16.934016436338435,52.40845467631362,0
+#               16.933506816625606,52.408523397636976,0
+#             </coordinates>
+#           </LinearRing>
+#         </outerBoundaryIs>
+#       </Polygon>
+#     </Placemark>
+
+
+#     <Placemark>
+#       <name>Spacer po rynku</name>
+#       <description></description>
+#       <LineString>
+#         <tessellate>1</tessellate>
+#         <altitudeMode>absolute</altitudeMode>
+#         <coordinates>
+#           16.934763431549083,52.40873610581625,0
+#           16.9345864057541,52.408327050714576,0
+#           16.934527397155772,52.408143792798626,0
+#           16.934398651123058,52.40793108176291,0
+#           16.93432354927064,52.407803454649134,0
+#           16.934216260910045,52.40759728699296,0
+#           16.93319165706,52.407777274682715,0
+#         </coordinates>
+#       </LineString>
+#     </Placemark>
+
+
+
+
