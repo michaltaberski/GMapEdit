@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110106115110) do
+ActiveRecord::Schema.define(:version => 20110119125439) do
 
   create_table "points", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20110106115110) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "surface"
   end
 
   create_table "polylines", :force => true do |t|
