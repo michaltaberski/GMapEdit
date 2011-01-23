@@ -14,4 +14,6 @@ conf =
     @object.setMap(map)
     @setObjClickCallback(@objClickCallback)
     @markers = []
-  
+
+  getLength: ->
+    google.maps.geometry.spherical.computeLength(@object.getPath())

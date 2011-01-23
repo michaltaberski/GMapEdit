@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 21:55:35 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 23 Jan 2011 15:12:19 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/polygon.gmapedit.coffee
  */
 
@@ -63,6 +63,9 @@
     };
     Polygon.prototype.getId = function() {
       return this.id;
+    };
+    Polygon.prototype.getSurface = function() {
+      return google.maps.geometry.spherical.computeArea(this.object.getPath());
     };
     Polygon.prototype.setDescription = function(description) {
       this.description = description;

@@ -43,6 +43,9 @@ conf =
 
   setId: (@id) ->
   getId: -> @id
+
+  getSurface: ->
+    google.maps.geometry.spherical.computeArea(@object.getPath())
   
   setDescription: (@description) ->
   getDescription: -> @description

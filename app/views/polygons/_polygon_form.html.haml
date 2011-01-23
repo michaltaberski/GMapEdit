@@ -10,9 +10,15 @@
         = f.input :name
         = f.input :description
         = f.input :data, :as => :hidden
+        = f.input :surface, :as => :hidden
+        %li
+          #surface
+            %b Powierzchnia:
+            0 km2
       = f.buttons do
         = f.commit_button :label => 'Zapisz '
         %li.align_right
           = link_to 'Anuluj', nil, :id => 'cancel'
         %li.align_right
           = link_to 'Usuń', @polygon, { :id => 'delete'} if @polygon.id
+

@@ -52,28 +52,6 @@ load_links = ->
     $('#new_point_link').click (e) ->
       e.preventDefault()
       load_new_object_form('point')
-      
-# load_polygon_form = ->
-#   $.getScript "/polygons/#{current_obj.getId()}/edit", ->
-#     current_obj.setPointEventCallback ->
-#       $('#polygon_data').val(current_obj.serialize())
-# 
-#     $('#polygon_submit').click (e) ->
-#       e.preventDefault()
-#       ajax_update_polygon(current_obj)
-# 
-#     $('#cancel').click (e) ->
-#       e.preventDefault()
-#       cancel(current_obj)
-#       
-#     $('#delete').click (e) ->
-#       e.preventDefault()
-#       $.post $(@).attr('href'), { '_method': "delete" }, (data)->
-#         if data.status == 'success'
-#           current_obj.destroy()
-#           current_obj = null
-#           flash_notice "Powierzchnia usunięta poprawnie"
-#       , "json"
 
 
 load_object_form = ->
@@ -82,6 +60,18 @@ load_object_form = ->
   $.getScript "/#{types}/#{current_obj.getId()}/edit", ->
     current_obj.setPointEventCallback ->
       $("##{type}_data").val(current_obj.serialize())
+
+
+    if type == 'polygon'
+      $("#polygon_surface").val(current_obj.getSurface())
+      wynik = "<b>Powierzchnia</b> #{parseInt(current_obj.getSurface()/1000000)} [km2]"
+      $("#surface").html(wynik)
+
+    if type == 'polyline'
+      $("#polyline_length").val(current_obj.getLength())
+      wynik = "<b>Długość</b> #{parseInt(current_obj.getLength()/1000)} [km]"
+      $("#length").html(wynik)
+
 
     $("##{type}_submit").click (e) ->
       e.preventDefault()
@@ -117,6 +107,18 @@ load_new_object_form = (obj_type) ->
     current_obj.draw()
     current_obj.setPointEventCallback ->
       $("##{obj_type}_data").val(current_obj.serialize())
+      if obj_type == 'polygon'
+        $("#polygon_surface").val(current_obj.getSurface())
+        wynik = "<b>Powierzchnia</b> #{parseInt(current_obj.getSurface()/1000000)} [km2]"
+        $("#surface").html(wynik)
+
+      if obj_type == 'polyline'
+        $("#polyline_length").val(current_obj.getLength())
+        wynik = "<b>Długość</b> #{parseInt(current_obj.getLength()/1000)} [km]"
+        $("#length").html(wynik)
+
+
+
 
     $("##{obj_type}_submit").click (e) ->
       e.preventDefault()
@@ -139,8 +141,7 @@ ajax_update_object = (obj) ->
     else
       flash_alert "Błąd"
   , 'json'
-  
-  
+
 ajax_create_object = (obj)->
   type = obj.type
   types = "#{type}s"
@@ -161,8 +162,6 @@ ajax_create_object = (obj)->
         cancel(obj)
         flash_notice "Obiekt zapisano poprawnie"
     , 'json'
-
-
 
 flash_alert = (msg) ->
   $('.container').append("<div class = 'flash alert'>#{msg}</div>")

@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sat, 08 Jan 2011 21:00:28 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 23 Jan 2011 15:12:19 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/polyline.gmapedit.coffee
  */
 
@@ -31,6 +31,9 @@
       this.object.setMap(map);
       this.setObjClickCallback(this.objClickCallback);
       return this.markers = [];
+    };
+    Polyline.prototype.getLength = function() {
+      return google.maps.geometry.spherical.computeLength(this.object.getPath());
     };
     return Polyline;
   })();

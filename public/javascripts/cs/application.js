@@ -1,4 +1,4 @@
-/* DO NOT MODIFY. This file was compiled Sun, 09 Jan 2011 15:46:29 GMT from
+/* DO NOT MODIFY. This file was compiled Sun, 23 Jan 2011 15:40:14 GMT from
  * /Users/tesla/Sites/Ruby_projects/GMapEdit/app/coffeescripts/application.coffee
  */
 
@@ -78,9 +78,20 @@
     type = current_obj.type;
     types = "" + type + "s";
     return $.getScript("/" + types + "/" + (current_obj.getId()) + "/edit", function() {
+      var wynik;
       current_obj.setPointEventCallback(function() {
         return $("#" + type + "_data").val(current_obj.serialize());
       });
+      if (type === 'polygon') {
+        $("#polygon_surface").val(current_obj.getSurface());
+        wynik = "<b>Powierzchnia</b> " + (parseInt(current_obj.getSurface() / 1000000)) + " [km2]";
+        $("#surface").html(wynik);
+      }
+      if (type === 'polyline') {
+        $("#polyline_length").val(current_obj.getLength());
+        wynik = "<b>Długość</b> " + (parseInt(current_obj.getLength() / 1000)) + " [km]";
+        $("#length").html(wynik);
+      }
       $("#" + type + "_submit").click(function(e) {
         e.preventDefault();
         return ajax_update_object(current_obj);
@@ -118,7 +129,18 @@
       }
       current_obj.draw();
       current_obj.setPointEventCallback(function() {
-        return $("#" + obj_type + "_data").val(current_obj.serialize());
+        var wynik;
+        $("#" + obj_type + "_data").val(current_obj.serialize());
+        if (obj_type === 'polygon') {
+          $("#polygon_surface").val(current_obj.getSurface());
+          wynik = "<b>Powierzchnia</b> " + (parseInt(current_obj.getSurface() / 1000000)) + " [km2]";
+          $("#surface").html(wynik);
+        }
+        if (obj_type === 'polyline') {
+          $("#polyline_length").val(current_obj.getLength());
+          wynik = "<b>Długość</b> " + (parseInt(current_obj.getLength() / 1000)) + " [km]";
+          return $("#length").html(wynik);
+        }
       });
       $("#" + obj_type + "_submit").click(function(e) {
         e.preventDefault();

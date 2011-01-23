@@ -10,9 +10,16 @@
         = f.input :name
         = f.input :description
         = f.input :data, :as => :hidden
+        = f.input :length, :as => :hidden
+        %li
+          #length
+            %b Długość:
+            0 km
       = f.buttons do
         = f.commit_button :label => 'Zapisz '
         %li.align_right
           = link_to 'Anuluj', nil, :id => 'cancel'
         %li.align_right
           = link_to 'Usuń', @polyline, { :id => 'delete'} if @polyline.id
+
+
